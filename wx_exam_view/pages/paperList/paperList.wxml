@@ -1,0 +1,105 @@
+<view>
+
+  <view class="m-tit font-size-m border-btm">
+    <view style='width:164px;margin:0 auto;height:100%;'>
+    <navigator target="miniProgram" app-id="wxd9d7e73ebf12cf64" version="release" style='position: fixed;left:0;top:70%;'><image class='shake-rotate' style='width: 100rpx;height: 100rpx;border-radius: 15%;float: left;' src="../images/yxwzlogo.png"></image></navigator>
+      <button data-page="page1" class="btn-primary {{pageshow=='page1'?'btncolor':''}}" style='margin-top:5px;padding-left:0;float:left;border-bottom-right-radius:0;border-top-right-radius:0;border-right:0;' hover-class="other-button-hover" bind:tap="showpage">待练习</button>
+      <button data-page="page2" class="btn-primary {{pageshow=='page2'?'btncolor':''}}" style='margin-top:5px;padding-left:0;float:left;border-bottom-left-radius:0;border-top-left-radius:0;border-left:0;' hover-class="other-button-hover" bind:tap="showpage">已结束</button>
+    </view>
+  </view>
+
+  <view wx-if="{{pageshow=='page1'}}">
+
+    <view class="m-tit font-size-m border-top">进行中（共{{StartTestListData.length}}场练习）</view>
+    <view class="m-wrap" wx-if="{{NoTest===false}}">
+      <view class="ul  font-size-s">
+        <view class="list " wx:for="{{StartTestListData}}" wx:key="*this">
+          <view style='overflow:hidden;' class="list-tit font-size-m font-bold">
+            <text class='inmanyline'>{{item.ExamName}}</text>
+            <text style="float:right;font-weight:100;">/{{item.TotalScore||'--'}}</text>
+            <text style="float:right;font-weight:100;" class="{{item.UserTotalScore==null?'':(item.UserTotalScore<item.PassScore?'textcolor_red':'textcolor_blue')}}">{{item.UserTotalScore||'--'}}</text>
+            <text style="float:right;font-weight:100;">得分：</text>
+          </view>
+          <view class="list-con">
+            <view class="list-con-l">
+              <view class="list-con-l-itm">截止时间：{{item.TimeDistance}}</view>
+              <view class="list-con-l-itm">{{item.BeginTime}}~{{item.EndTime}}</view>
+            </view>
+            <view class="list-con-r">
+              <button id="starttest-{{index}}" class="btn-active" bind:tap="toShare">
+                查看
+              </button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view wx-if="{{NoTest===false&&WaitTestListData.length!=0}}" style="float:left;" class="m-tit font-size-m border-top">待开始（共{{WaitTestListData.length}}场练习）</view>
+    <view class="m-wrap" wx-if="{{NoTest===false&&WaitTestListData.length!=0}}">
+      <view class="ul  font-size-s">
+        <view class="list " wx:for="{{WaitTestListData}}" wx:key="*this">
+          <view style='overflow:hidden;' class="list-tit font-size-m font-bold">
+            <text class='inmanyline'>{{item.ExamName}}</text>
+            <text style="float:right;width:120px;text-align:right;font-weight:100;">得分：--/{{item.TotalScore||100}}</text>
+          </view>
+          <view class="list-con">
+            <view class="list-con-l">
+              <view class="list-con-l-itm">截止时间：{{item.BeginTime}}</view>
+              <view class="list-con-l-itm">{{item.EndTime}}</view>
+            </view>
+            <view class="list-con-r">
+              <button id="waittest-{{index}}" class="btn-active" bind:tap="toShare">
+                查看
+              </button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+  <view wx-if="{{pageshow=='page2'}}">
+    <view class="m-tit font-size-m border-top">已结束（共{{EndTestListData.length||0}}场练习）
+      <picker wx-if="monthList.length>0" style='line-height:28px;font-size:12px;background:#fff;border:1px solid #5bb8fe;color:#5bb8fe;height:30px;margin-top:5px;float:right;border-radius:5px;text-align:center;padding-right:14px;margin-right:10px;' bindchange="bindPickerChange"
+        value="{{monthindex}}" range="{{monthList}}">
+
+        <view class="picker">
+          {{monthList[monthindex]}}
+        </view>
+      </picker>
+      <!-- <button id="itm-{{index}}" class="btn-primary" style='float:right;width:90px;padding-left:0;margin-top:5px;margin-right:10px;' bind:tap="selectmonth">
+                {{array[index]}}
+              </button> -->
+    </view>
+
+    <view class="m-wrap" wx-if="{{NoTest===false}}">
+      <view class="ul  font-size-s">
+        <view class="list " wx:for="{{EndTestListData}}" wx:key="*this">
+          <view style='overflow:hidden;' class="list-tit font-size-m font-bold">
+            <text class='inmanyline'>{{item.ExamName}}</text>
+            <text style="float:right;font-weight:100;">/{{item.TotalScore||100}}</text>
+            <text style="float:right;font-weight:100;" class="{{item.UserTotalScore==null?'':(item.UserTotalScore<item.PassScore?'textcolor_red':'textcolor_blue')}}">{{item.UserTotalScore||0}}</text>
+            <text style="float:right;font-weight:100;">得分：</text>
+          </view>
+          <view class="list-con">
+            <view class="list-con-l">
+              <view class="list-con-l-itm">练习已结束</view>
+              <view class="list-con-l-itm">{{item.EndTime}}</view>
+            </view>
+            <view class="list-con-r">
+              <button id="endtest-{{index}}" class="btn-active" bind:tap="toShare">
+                查看
+              </button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="m-wrap" wx-if="{{NoTest===true}}">
+    <view class="m-tips font-bold font-size-xl font-blue">暂无练习可参加，快通知管理员分享考核云内的练习吧。</view>
+  </view>
+</view>

@@ -1,0 +1,99 @@
+<view style="width:100%;height:auto;">
+    <swiper duration="100" class="swiper-container" style="position:fixed;height: {{clientHeight?clientHeight+'px':'auto'}}" bindchange="listenSwiper" current="{{currentIndex}}">
+        <swiper-item class="swiper_item" wx:for="{{arrTestObj}}" wx:for-item="oneTestObj" wx:key="index" item-id="{{oneTestObj.testNO}}" bindtouchstart='touchStart' bindtouchend='touchEnd' data-testindex="{{index}}">
+          <scroll-view scroll-y="true" style="height: {{clientHeight?clientHeight+'px':'auto'}}">
+            
+            <view class="test-content">
+                <!--标题渲染start-->
+                <view class="testNo">{{oneTestObj.testStyle}}
+                  <text style="margin-left:40rpx;color:#5BB8FE;">{{oneTestObj.testNO}}/{{testCount}}</text>
+                </view>
+                <view style="padding-right:10px;padding-left:15px;font-size:18px;" wx:if="{{oneTestObj.testType == 'A3TEST'}}">
+                  <rich-text nodes="{{oneTestObj.frontTitle}}"></rich-text>
+                </view>
+                <view style="padding-right:10px;padding-left:15px;margin:10px 0;font-size:18px;">
+                  <rich-text nodes="{{oneTestObj.testNO}}. {{oneTestObj.title}}"></rich-text>
+                </view>
+                <!--标题渲染end-->
+
+                <view class="items">
+                    <!--单选题选项渲染start-->
+                    <block wx:if="{{oneTestObj.testType == 'ATEST' || oneTestObj.testType == 'PDTEST' || oneTestObj.subTestType == 'ATEST'}}">
+                        <view class="opt-item" wx:for="{{oneTestObj.selectedItems}}" wx:for-item="item" wx:key="index" data-selectedvalue="{{item.ItemName}}">
+                          <view class="opt-flag-radio {{oneTestObj.isRight==1&&oneTestObj.userReply==item.ItemName ? 'wrong':(oneTestObj.isRight==0&&oneTestObj.userReply==item.ItemName?'right':'default')}}">{{item.ItemName}}</view>
+                          <view class="opt-text {{oneTestObj.isRight==1&&oneTestObj.userReply==item.ItemName?'errorAnswer':((oneTestObj.isRight==0&&oneTestObj.userReply==item.ItemName)||oneTestObj.answer==item.ItemName ? 'rightAnswer':'defaultText')}}">
+                            <rich-text nodes="{{item.Content}}"></rich-text>
+                          </view>
+                        </view>
+                    </block>
+                    <!--单选题选项渲染end-->
+
+                    <!--多选题选项渲染start-->
+                    <block wx:if="{{oneTestObj.testType == 'XTEST' || oneTestObj.subTestType == 'XTEST'}}">
+                        <view class="opt-item" wx:for="{{oneTestObj.selectedItems}}" wx:for-item="item" wx:key="index" data-selectedvalue="{{item.ItemName}}">
+                          <view class="opt-flag-checkbox {{oneTestObj.checkboxValue[index].isRight==1? 'wrong':(oneTestObj.checkboxValue[index].isRight==0?'right':(oneTestObj.checkboxValue[index].isRight==2?'checkbox-selected':'default'))}}">{{item.ItemName}}</view>
+                          <view class="opt-text {{oneTestObj.checkboxValue[index].isRight==1?'errorAnswer':(oneTestObj.checkboxValue[index].isRight==0||oneTestObj.checkboxValue[index].isRight==3? 'rightAnswer':'defaultText')}}">
+                            <rich-text nodes="{{item.Content}}"></rich-text>
+                          </view>
+                        </view>
+                    </block>
+                    <!--多选题选项渲染end-->
+
+                    <!--简答题输入框渲染start-->
+                    <block wx:if="{{oneTestObj.testType == 'JDTEST'}}">
+                      <input class="textareaText" value='{{oneTestObj.userReply}}'/>
+                    </block>
+                    <!--简答题输入框渲染end-->
+
+                    <!--填空题输入项渲染start-->
+                    <block wx:if="{{oneTestObj.testType == 'TKTEST'}}">
+                        <block wx:for="{{oneTestObj.answerCount}}" wx:for-item="count" wx:key="index">
+                          <text class="inputNO">{{index+1}}.</text>
+                          <input class="inputItem" value='{{oneTestObj.userReply}}'/>
+                        </block>
+                    </block>     
+                    <!--填空题输入项渲染end-->
+                </view>
+                
+                <!--正确答案、解析渲染start-->
+                <view class="testResult result-show">
+                  <view class="result-flag-top"></view><view class="result-flag-text">答案解析</view>
+                  <view style="margin-bottom:8px; {{oneTestObj.testType == 'TKTEST'||oneTestObj.testType == 'JDTEST' ? 'clear:left;':'float:left;width:160px;'}}">
+                    <text style="float:left;">正确答案：</text> 
+                    <view style="float:left;color: #5fc7a2; {{oneTestObj.testType == 'TKTEST'||oneTestObj.testType == 'JDTEST' ? 'width:96%;':''}}"><rich-text nodes="{{oneTestObj.answer}}"></rich-text></view>
+                  </view>
+                  <view style="{{oneTestObj.testType == 'TKTEST'||oneTestObj.testType == 'JDTEST' ? 'clear:left;padding-top:8px;padding-bottom:8px;':'float:left'}}">我的答案： <text class="{{oneTestObj.isRight==0 ? 'rightAnswer':'errorAnswer'}}">{{oneTestObj.userReply}}</text></view>
+                  <view style="clear:left;width:95%"><rich-text nodes="解析：{{oneTestObj.explain}}"></rich-text></view>
+                </view>
+                <!--正确答案、解析渲染end-->
+
+                <view style="height:117px;"></view>
+            </view>
+    
+          </scroll-view>
+        </swiper-item>
+    </swiper>
+    <view class="footer">
+      <view class="footer-left" catchtap='showTestCard'>
+        <view class="footer-img"><image src='../../images/card.png'></image></view>
+        <view class="footer-text"> 题卡 </view>
+      </view>
+      <view class="footer-right" catchtap='showTestScore'>
+        <view class="footer-img"><image src='../../images/piyue.png'></image></view>
+        <view class="footer-text"> 批阅 </view>
+      </view>
+    </view>
+    <!--题卡弹窗-->
+    <modal class="modal" hidden="{{modalFlag}}" no-cancel="true"  confirmText="关闭题卡" bindconfirm="closeModal">
+    <scroll-view scroll-y="true" style="height:350px;" lower-threshold="1" upper-threshold="1" bindscrolltoupper="scrolltoupper" bindscrolltolower="scrolltolower">
+      <view class="card-list">
+        <view wx:for="{{testCardLists}}" wx:for-item="card" wx:key="index">
+          <view style="font-weight:bold;">{{card.styleName}}</view>
+          <block wx:for="{{card.cardLists}}" wx:for-item="test" wx:key="cindex">
+            <text class="card {{test.isRight==-1 ? 'card-default':(test.isRight==1 ? 'card-error':'card-right')}}" catchtap='cardNOClick' data-testno="{{test.testNO}}">{{test.testNO}}</text>
+          </block>
+        </view>
+      </view>
+    </scroll-view>
+    </modal>
+</view>

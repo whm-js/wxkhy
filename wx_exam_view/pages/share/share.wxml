@@ -1,0 +1,34 @@
+<!--pages/share/share.wxml-->
+<view>
+ <navigator target="miniProgram" app-id="wxd9d7e73ebf12cf64" version="release" style='position: fixed;left:0;top:70%;'><image class='shake-rotate' style='width: 100rpx;height: 100rpx;border-radius: 15%;float: left;' src="../images/yxwzlogo.png"></image></navigator>
+  <view class="m-wrap">
+    <view class="tit-Img">
+      <image style="width:100%;height:100%;" mode="{{item.mode}}" src="{{src}}"></image>
+    </view>
+  </view>
+  <view class="m-wrap">
+    <view style='margin-bottom:20px;' class="tit-con font-bold font-size-xl">试卷名称：{{ExamName}}</view>
+
+    <view class="tit-con font-size-l border-top" style='height:40px;padding-top:0;'>
+      <view class="tit-con font-size-m" style='width:33%;height:100%;float:left;'>
+        {{'题量：'+TestCount+'题'}}</view>
+      <view class="tit-con font-size-m" style='width:33%;height:100%;float:left;'>
+        总分：{{PaperData.examList.TotalScore}}分</view>
+      <view class="tit-con font-size-m" style='width:33%;height:100%;float:left;'>
+        合格分：{{PaperData.examList.PassScore}}分</view>
+    </view>
+
+    <view class="tit-con font-size-l border-top border-btm" style='height:40px;padding-top:0;'>
+      <view class="tit-con font-size-m" style='width:50%;padding-top:3px;float:left;'>
+        {{'开始：'+ExamBeginTime}}</view>
+      <view class="tit-con font-size-m" style='width:50%;padding-top:3px;float:left;'>
+        {{'结束：'+ExamEndTime}}</view>
+    </view>
+
+  </view>
+
+  <view class="m-wrap">
+    <button open-type="getUserInfo" id="start" class="btn-primary btn-active" bind:tap="turnToDoTest">{{ExamStatus==3?'查看练习':'开始练习'}}</button>
+    <button class="btn-primary" wx-if="{{ExamStatus!=3}}" open-type="share">考考朋友</button>
+  </view>
+</view>

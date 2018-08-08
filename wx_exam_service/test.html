@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<input type="button" id="getCode" value="二维码"/>
+<img id="code" src="" width="300" height="300">
+</body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+
+
+    $('#getCode').click(function(){
+        //var url='http://127.0.0.1:2009/test/getCodeUrl'
+        var url='https://wxinfoapi.tibosi.com/test/getCodeUrl'
+        var examID=27674
+        //var examID=48958
+        var examID=49354
+        $.post(url,{examId:examID},function (data) {
+            console.log(data);
+            if(data.status===200){
+                $('#code').attr('src',data.data.url);
+            }
+        })
+    })
+</script>
+</html>

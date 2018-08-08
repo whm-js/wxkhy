@@ -1,0 +1,35 @@
+<!--pages/remark/remark.wxml-->
+<view>
+  <view class="m-wrap" style='position:relative'>
+    <view class="tit-Img">
+      <image style="width:100%;height:100%;" src="{{src}}"></image>
+    </view>
+    <view class='passimg'>
+      <image style="width:100%;height:100%;" src="{{passsrc}}"></image>
+    </view>
+  </view>
+  <view class="m-wrap">
+    <view style='text-align:left;'><text style='margin-left:20px;font-weight:700;'>答题情况:</text></view>
+    <view class="m-mid " style='height:60px;'>
+      <view class="m-mid-con" style='height:60px;'>
+        <view class="m-mid-con-txt font-size-l" style='height:30px;'>答对/总题量
+        </view>
+        <view class="m-mid-con-txt font-size-l" style='height:30px;'><text class='textcolor_blue'>{{AnswerRightCount}}</text>/{{testCount}}题
+        </view>
+      </view>
+      <view class="m-mid-con" style='height:60px;'>
+        <view class="m-mid-con-txt font-size-l" style='height:30px;'>得分/总分
+        </view>
+        <view class="m-mid-con-txt font-size-l" style='height:30px;'><text class="{{userScore<passScore?'textcolor_red':'textcolor_blue'}}">{{userScore}}</text>/{{totalScore}}分
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="m-wrap">
+    <button wx-if="{{fromUrl!='testRead'}}" id="start" class="btn-primary btn-active" bind:tap="turnToDoTest">继续答题</button>
+    <button wx-if="{{fromUrl!='testRead'}}" id="redo" class="btn-primary btn-active" bind:tap="turnToDoTest">重做一次</button>
+    <button wx-if="{{fromUrl!='testRead'}}" class="btn-primary" open-type="share">考考朋友</button>
+    <button  wx-if="{{fromUrl=='testRead'}}" id="start" class="btn-primary btn-active" bind:tap="backDoTest">返回试题</button>
+    <button class="btn-primary" bind:tap="turnToList">返回首页</button>
+  </view>
+</view>

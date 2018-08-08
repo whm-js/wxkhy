@@ -1,0 +1,239 @@
+/* pages/index/doExam.wxss */
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+.test-content {
+  display:inline-block;
+  width: 100%;
+}
+
+.answer-explain {
+  width: 180rpx;
+  height: 100rpx;
+  color: #fff;
+  text-align: center;
+  background: #0cf;
+}
+
+.result-show {
+  display: block;
+}
+.result-hidden {
+  display: none;
+}
+
+.testList {
+  height: auto;
+  margin-bottom: 60rpx;
+  line-height: 30px;
+  overflow-x: hidden;
+  font-size: 18px;
+}
+
+.opt-item {
+  clear: left;
+  padding: 0rpx 5rpx;
+  width: 100%;
+  height: auto;
+}
+.opt-text {
+  float: left;
+  max-width: 80%;
+  min-width: 280px;
+  margin: 8px 2px;
+  color: #000000;
+  line-height: 50rpx;
+  font-size: 16px;
+  word-break: break-all;
+}
+.opt-flag-radio {
+  float: left;
+  width: 30px;
+  height: 30px;
+  margin: 5px 10px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50%;
+}
+.opt-flag-checkbox {
+  float: left;
+  width: 30px;
+  height: 30px;
+  margin: 5px 10px;
+  text-align: center;
+  line-height: 30px;
+}
+.default {
+  color: #5BB8FF;
+  border: 1rpx solid #5BB8FF;
+  background: #ffffff;
+}
+.checkbox-selected {
+  color: #ffffff;
+  border: 1rpx solid #5BB8FF;
+  background: #5BB8FF;
+}
+.wrong {
+  border: 1rpx solid #FF7875;
+  background-color: #FF7875;
+  color: white;
+}
+.right {
+  border: 1rpx solid #5FC8A2;
+  background-color: #5FC8A2;
+  color: white;
+}
+
+.defaultText {
+  color: #000000;
+}
+.errorAnswer {
+  color: #FF7875;
+}
+.rightAnswer {
+  color: #5FC8A2;
+}
+
+.checkboxBtn {
+  clear: left;
+  width: 170px;
+  margin:2px 25%;
+  color: #ffffff !important;
+  background: #5BB8FF !important;
+}
+
+.testNo {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 30rpx;
+  padding-left: 15px;
+  line-height: 40px;
+  font-size: 16px;
+  border-bottom: 3rpx solid #eee;
+}
+.items {
+  clear: left;
+  width: 100%;
+  height: auto;
+  margin-left: 8px;
+  word-break:break-all;
+  font-size:16px;
+}
+
+.textareaText {
+  min-height: 110px;
+  width: 83%;
+  padding: 5px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.inputNO {
+  float: left;
+  margin-left: 15px;
+}
+.inputItem {
+  float: left;
+  width: 83%;
+  height: 30px;
+  margin-bottom: 10px;
+  padding-left: 20rpx;
+  line-height: 30px;
+  border-bottom: 1px solid #ccc;
+}
+
+.testResult {
+  clear: both;
+  width: 100%;
+  height: auto;
+  margin-top: 20rpx;
+  padding: 0rpx 15px;
+  border-top:4px solid #eee;
+  word-break:break-all;
+  font-size: 16px;
+}
+.result-flag-top {
+  float: left;
+  width: 8rpx;
+  height: 40rpx;
+  margin-top: 10px;
+  background: #5BB8FF;
+}
+.result-flag-text {
+  float: left;
+  width: 90%;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 10px;
+  font-size: 18px;
+  color: #5BB8FF;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  height: 120rpx;
+  line-height: 120rpx;
+  text-align: center;
+  color: #ffffff;
+  border-top: 1px solid #5BB8FF;
+  background: #5BB8FF;
+}
+.footer image{
+  width:22px;
+  height:22px;
+  margin-top: 5px;
+  vertical-align: top;
+}
+.footer-left {
+  float: left;
+  width: 49%;
+}
+.footer-right {
+  float: right;
+  width: 49%;
+}
+.footer-img {
+  height:30px;
+  margin-top: 3px;
+}
+.footer-text {
+  height: 24px;
+  line-height: 24px;
+  font-size: 16px;
+}
+
+/**题卡的样式**/
+.card-list {
+  overflow:hidden;
+}
+.card {
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+  margin: 5px 6px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+}
+.card-default {
+  color: #5BB8FE;
+  background: #ffffff;
+  border: 1px solid #5BB8FE;
+}
+.card-right {
+  color: #ffffff;
+  background: #5fc7a2;
+  border: 1px solid #5fc7a2;
+}
+.card-error {
+  color: #ffffff;
+  background: #ff7775;
+  border: 1px solid #ff7775;
+}

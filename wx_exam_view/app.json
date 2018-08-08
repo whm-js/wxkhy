@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/paperList/paperList",
+    "pages/share/share",
+    "pages/test/doExam",
+    "pages/test/testRead/testRead",
+    "pages/remark/remark"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#5BB8FE",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "white"
+  }
+}
